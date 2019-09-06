@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import createAuth0Client from '@auth0/auth0-spa-js';
+import { setToken } from './services/habitsApi';
 
 
 const DEFAULT_REDIRECT_CALLBACK = () => {
@@ -21,7 +22,6 @@ export default function Auth0Provider({ children, onRedirectCallback = DEFAULT_R
       const auth0 = await createAuth0Client(initOptions);
       setAuth0Client(auth0);
 
-
       if(window.location.search.includes('code=')) {
         const { appState } = await auth0.handleRedirectCallback();
         onRedirectCallback(appState);
@@ -34,6 +34,10 @@ export default function Auth0Provider({ children, onRedirectCallback = DEFAULT_R
         const user = await auth0.getUser();
         setUser(user);
       }
+
+      const claims = await auth0.getIdTokenClaims();
+      setToken(claims.__raw);
+
       updateLoading(false);
     };
     initAuth0();
