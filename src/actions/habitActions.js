@@ -1,5 +1,7 @@
+import { postHabit } from '../services/habitsApi';
+
 export const CREATE_HABIT = 'CREATE_HABIT';
-const createHabt = (habit, description) => {
+export const createHabit = (habit, description) => ({
   type: CREATE_HABIT,
-  payload: postHabit(habit, description)
-}
+  payload: postHabits(habit, description)
+});

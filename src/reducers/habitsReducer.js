@@ -9,8 +9,9 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch(action.type) {
     case CREATE_HABIT:
-      return {...state, list: [...state.list, action.payload] };
+      return { ...state, list: [...state.list, action.payload] };
     default:
       return state;
   }
 }
+
